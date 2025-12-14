@@ -1,0 +1,5 @@
+{
+  "name": "Sentron Pi Monitor",
+  "description": "Dashboard industrial para monitorización energética de Siemens Sentron PAC 3200 usando Raspberry Pi.",
+  "requestFramePermissions": []
+}
