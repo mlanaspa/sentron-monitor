@@ -1,95 +1,51 @@
-# Guía Súper Simple - Sentron Pi Monitor
+# Sentron Pi Monitor ⚡
 
-## 1. Preparación (Solo la primera vez)
+Monitorización de energía industrial para Siemens PAC 3200.
 
-1.  **Instala Node.js**: Descárgalo de [nodejs.org](https://nodejs.org).
-2.  **Crea la Carpeta**: Crea `SentronApp` en tu escritorio.
-3.  **Archivos**: Copia el código dentro.
+## 🚀 Cómo ponerlo en Internet (Render.com)
 
-## 2. Instalación
+Ya tienes el código en GitHub. Sigue estos pasos para generar el enlace web:
 
-Abre la terminal **dentro de VS Code** (`Ctrl + ñ` o Menú `Terminal > Nueva Terminal`) y ejecuta:
+1.  **Sube los últimos cambios**:
+    *   En VS Code, ve al icono de Git (izquierda).
+    *   Escribe un mensaje (ej: "Listos para despegar") y dale a **Commit**.
+    *   Dale al botón **Sync Changes** (o Push).
 
-```bash
-npm install
-cd backend
-npm install
-cd ..
-```
-*(Es importante volver a la carpeta raíz con `cd ..` después de instalar el backend)*
+2.  **Configura Render**:
+    *   Entra en [dashboard.render.com](https://dashboard.render.com) y crea una cuenta (puedes usar la de GitHub).
+    *   Pulsa el botón **New +** y elige **Web Service**.
+    *   Busca tu repositorio `sentron-pi-monitor` (o el nombre que le hayas puesto) y dale a **Connect**.
 
-## 3. Configuración de la IA (Opcional)
+3.  **Rellena el formulario**:
+    *   **Name**: `sentron-monitor` (o lo que quieras).
+    *   **Region**: Frankfurt (o la más cercana).
+    *   **Branch**: `main` o `master`.
+    *   **Root Directory**: (Déjalo en blanco).
+    *   **Runtime**: `Node` (Lo detectará solo).
+    *   **Build Command**: `npm run build`
+    *   **Start Command**: `npm run start:prod`
+    *   **Instance Type**: Free (Gratis).
 
-Para que el "Asistente AI" funcione en tu PC, necesitas tu clave de Gemini:
+4.  **Configura la IA (Importante)**:
+    *   Baja un poco hasta ver "Environment Variables".
+    *   Pulsa **Add Environment Variable**.
+    *   Key: `API_KEY`
+    *   Value: *(Pega aquí tu clave de Google Gemini)*.
 
-1. Crea un archivo nuevo en la carpeta raíz llamado `.env` (solo `.env`, sin nombre delante).
-2. Escribe dentro tu clave así:
-   ```env
-   API_KEY=tu_clave_super_secreta_aqui
-   ```
-3. Guarda el archivo. El programa la leerá automáticamente al arrancar.
-
-## 4. ¡A Jugar! (Modo Local)
-
-Gracias a la nueva actualización, ya no necesitas 3 ventanas.
-
-1. Abre la terminal en VS Code.
-2. Asegúrate de estar en la carpeta raíz (`SentronApp`).
-3. Ejecuta el comando mágico:
-
-```bash
-npm start
-```
-
-**¿Qué pasará?**
-El sistema encenderá automáticamente:
-1.  🟨 El Simulador del Sentron
-2.  🟦 El Servidor de la Raspberry
-3.  🟩 La Web (y abrirá tu navegador solo)
+5.  **Finalizar**:
+    *   Dale a **Create Web Service**.
+    *   Espera unos 2-3 minutos. Render instalará todo, construirá la web y encenderá el simulador.
+    *   Cuando termine, verás un enlace tipo `https://sentron-monitor.onrender.com`. ¡Esa es tu web!
 
 ---
 
-## ☁️ Guía para subir a Internet (Render.com)
+## 💻 Uso Local (En tu PC)
 
-Si quieres que tus compañeros vean la web desde sus móviles:
+1.  `npm install`
+2.  `npm start`
+3.  Abre `http://localhost:5173`
 
-1.  **Sube el código a GitHub**:
-    *   Crea una cuenta en GitHub.com y crea un repositorio vacío.
-    *   En VS Code, ve a la pestaña de "Source Control" (icono de rama a la izquierda).
-    *   Dale a "Publish to GitHub".
-
-2.  **Despliega en Render**:
-    *   Ve a [dashboard.render.com](https://dashboard.render.com).
-    *   Nuevo -> **Web Service**.
-    *   Conecta tu repositorio de GitHub.
-    *   **Build Command:** `npm run build`
-    *   **Start Command:** `node backend/server.js`
-    *   **Environment Variables:** Añade una llamada `API_KEY` con tu clave de Gemini.
-    *   Dale a "Create Web Service".
-
----
-
-## 🚑 Solución de Problemas (LEER AQUÍ SI FALLA)
-
-### 1. Error: "Please tell me who you are"
-Git necesita saber quién eres para guardar los cambios. Escribe estos dos comandos en la terminal (sustituye con tus datos reales):
-
-```bash
-git config --global user.email "tucorreo@ejemplo.com"
-git config --global user.name "Tu Nombre"
-```
-*⚠️ IMPORTANTE: No escribas los símbolos `<` o `>`. Solo las comillas `""`.*
-
-### 2. Error: "Invalid Key" o "Permission denied" al subir
-Si te sale error de claves SSH, cambia la configuración a HTTPS con este comando:
-
-```bash
-git remote set-url origin https://github.com/TU_USUARIO/TU_REPO.git
-```
-*(Cambia TU_USUARIO y TU_REPO por los tuyos).*
-
-### 3. Error PowerShell: "Ejecución de scripts deshabilitada"
-Si salen letras rojas al ejecutar `npm start` en Windows:
-```powershell
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
+El sistema iniciará automáticamente:
+*   Simulador Modbus TCP (Puerto 8502)
+*   Backend API (Puerto 3001)
+*   Frontend React (Puerto 5173)

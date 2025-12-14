@@ -1,14 +1,15 @@
 {
   "name": "sentron-pi-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm install && cd backend && npm install && cd .. && tsc && vite build",
+    "build": "tsc && vite build",
+    "postinstall": "cd backend && npm install",
     "preview": "vite preview",
-    "setup": "npm install && cd backend && npm install",
-    "start": "concurrently -k -n \"SIMULADOR,SERVIDOR,WEB\" -c \"yellow,blue,green\" \"cd backend && node mockDevice.js\" \"cd backend && node server.js\" \"vite\""
+    "start": "concurrently -k -n \"SIMULADOR,SERVIDOR,WEB\" -c \"yellow,blue,green\" \"cd backend && node mockDevice.js\" \"cd backend && node server.js\" \"vite\"",
+    "start:prod": "node backend/server.js"
   },
   "dependencies": {
     "@google/genai": "^1.33.0",
